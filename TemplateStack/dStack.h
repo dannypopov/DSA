@@ -38,11 +38,11 @@ template<typename type>
 inline dStack<type>::~dStack()
 {
 	Box<type>* boxPointer;
-	while (m_top)
+	while (m_top != nullptr)
 	{
 		boxPointer = m_top;
-		delete[] boxPointer;
 		m_top = m_top->m_next;
+		delete boxPointer;
 	}
 	init();
 }
