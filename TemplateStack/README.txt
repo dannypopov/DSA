@@ -1,1 +1,0 @@
-Template stack realization. C++
