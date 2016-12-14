@@ -1,5 +1,6 @@
 #ifndef DYNAMICARRAY_H
 #define DYNAMICARRAY_H
+#include <iostream>
 template<typename type>
 class dArray
 {
@@ -23,10 +24,20 @@ public:
 	type& operator[](int);
 	const type& operator[](int)const;
 	void add(type);
+	void AlphaSort();
 };
+void swap(char *&first, char *&second)
+{
+	if (first != nullptr && second != nullptr)
+	{
+		char* tmp;
+		tmp = first;
+		first = second;
+		second = tmp;
+	}
+}
 template<typename type>
 std::ostream& operator<<(std::ostream&, const dArray<type>&);
-
 template<typename type>
 inline int dArray<type>::getCapacity() const
 {
@@ -69,6 +80,22 @@ inline void dArray<type>::add(type newEl)
 	}
 	m_array[m_index] = newEl;
 	m_index++;
+}
+
+template <>
+inline void dArray<char*>::AlphaSort()
+{
+	char tmp[50];
+	for (int i = 0; i < m_index - 1; i++)
+	{
+		for (int ii = i + 1; ii < m_index; ++ii)
+		{
+			if (strcmp(m_array[i], m_array[ii]) > 0)
+			{
+				swap(m_array[i], m_array[ii]);
+			}
+		}
+	}
 }
 
 template<typename type>
@@ -122,7 +149,7 @@ inline void dArray<type>::init()
 }
 template<typename type>
 inline dArray<type>::dArray()
-{	
+{
 	init();
 }
 
@@ -156,7 +183,6 @@ inline std::ostream & operator<<(std::ostream &out, const dArray<type>&arr)
 		out << arr[i];
 		out << "\n";
 	}
-	out << "\n";
 	return out;
 }
 #endif // if DYNAMICARRAY_H
